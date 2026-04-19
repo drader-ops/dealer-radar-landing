@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>딜러 레이더 - 중고차 딜러를 위한 AI 통화 분석기</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700;800;900&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.4.0/css/all.min.css" />
+</head>
+
+<a href="https://dealer-radar.vercel.app/" class="btn btn-outline btn-lg" target="_blank" rel="noopener noreferrer">
+  <i class="fa-solid fa-user-group"></i>
+  지인용
+</a>
+
+<body>
+
+  <!-- ========== NAVIGATION ========== -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#" class="nav-logo">
+        <span class="logo-icon">📡</span>
+        <span class="logo-text">딜러 레이더</span>
+      </a>
+      <ul class="nav-links">
+        <li><a href="#problem">문제 인식</a></li>
+        <li><a href="#solution">솔루션</a></li>
+        <li><a href="#demo">데모</a></li>
+        <li><a href="#features">기능</a></li>
+        <li><a href="#results">기대 효과</a></li>
+      </ul>
+      <a href="#cta-final" class="nav-cta">무료로 시작하기</a>
+      <button class="hamburger" id="hamburger" aria-label="메뉴 열기">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+      <ul>
+        <li><a href="#problem" class="mobile-nav-link">문제 인식</a></li>
+        <li><a href="#solution" class="mobile-nav-link">솔루션</a></li>
+        <li><a href="#demo" class="mobile-nav-link">데모</a></li>
+        <li><a href="#features" class="mobile-nav-link">기능</a></li>
+        <li><a href="#results" class="mobile-nav-link">기대 효과</a></li>
+        <li><a href="#cta-final" class="mobile-nav-link nav-cta-mobile">무료로 시작하기</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- ========== SECTION 1: HERO ========== -->
+  <section class="hero" id="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-particles" id="heroParticles"></div>
+    <div class="container hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span>베타 테스터 모집 중 · 첫 3건 무료 분석</span>
+      </div>
+      <h1 class="hero-headline editable" data-editable="hero-headline">
+        오늘 놓친 그 고객,<br />
+        <span class="highlight">사실은 살 마음이 있었습니다.</span>
+      </h1>
+      <p class="hero-subheading editable" data-editable="hero-sub">
+        중고차 딜러를 위한 AI 통화 분석기, <strong>딜러 레이더.</strong><br />
+        통화 녹음만 올리면 AI가 고객의 <strong>'진짜 니즈'</strong>와 <strong>'구매 시그널'</strong>을 찾아내어<br class="br-desktop" />
+        계약률을 높여드립니다.
+      </p>
+      <div class="hero-cta-group">
+        <a href="#cta-final" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-play"></i>
+          내 통화 녹음으로 무료 테스트하기
+        </a>
+        <a href="#demo" class="btn btn-outline btn-lg">
+          <i class="fa-solid fa-circle-play"></i>
+          데모 먼저 보기
+        </a>
+      </div>
+      <div class="hero-trust-bar">
+        <div class="trust-item">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span>분석 후 즉시 파기</span>
+        </div>
+        <div class="trust-divider">|</div>
+        <div class="trust-item">
+          <i class="fa-solid fa-lock"></i>
+          <span>완벽한 암호화</span>
+        </div>
+        <div class="trust-divider">|</div>
+        <div class="trust-item">
+          <i class="fa-solid fa-star"></i>
+          <span>베타 테스터 무료 혜택</span>
+        </div>
+      </div>
+    </div>
+    <div class="hero-scroll-hint">
+      <span>아래로 스크롤</span>
+      <i class="fa-solid fa-chevron-down bounce"></i>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 2: PROBLEM AGITATION ========== -->
+  <section class="problem" id="problem">
+    <div class="container">
+      <div class="section-label">문제 인식</div>
+      <h2 class="section-title editable" data-editable="problem-title">
+        혹시 이런 경험 없으신가요?
+      </h2>
+      <div class="problem-cards">
+        <div class="problem-card">
+          <div class="problem-icon">💬</div>
+          <p class="problem-quote editable" data-editable="problem-1">
+            "아내랑 상의해 볼게요" 하고 끊은 고객,<br />
+            <strong>진짜 이유가 뭘까?</strong>
+          </p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">💬</div>
+          <p class="problem-quote editable" data-editable="problem-2">
+            비싸서 안 산다는 걸까,<br />
+            <strong>깎아주면 산다는 걸까?</strong>
+          </p>
+        </div>
+        <div class="problem-card">
+          <div class="problem-icon">💬</div>
+          <p class="problem-quote editable" data-editable="problem-3">
+            하루 종일 통화했는데,<br />
+            <strong>막상 장부에 적으려니 기억이 안 난다.</strong>
+          </p>
+        </div>
+      </div>
+      <div class="problem-conclusion">
+        <div class="conclusion-line"></div>
+        <p class="conclusion-text editable" data-editable="problem-conclusion">
+          <span class="conclusion-icon">⚡</span>
+          <strong>감으로 하는 영업은 이제 한계가 있습니다.</strong>
+        </p>
+        <div class="conclusion-line"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 3: SOLUTION ========== -->
+  <section class="solution" id="solution">
+    <div class="container">
+      <div class="section-label">솔루션</div>
+      <h2 class="section-title editable" data-editable="solution-title">
+        딜러 레이더가<br />
+        <span class="highlight">고객의 속마음을 번역</span>해 드립니다.
+      </h2>
+      <div class="solution-steps">
+        <div class="solution-step">
+          <div class="step-number">01</div>
+          <div class="step-content">
+            <div class="step-icon-wrap">
+              <i class="fa-solid fa-users"></i>
+            </div>
+            <h3 class="step-title editable" data-editable="sol-1-title">자동 화자 분리</h3>
+            <p class="step-desc editable" data-editable="sol-1-desc">
+              [딜러]와 [고객]의 목소리를 완벽하게 분리하여<br />
+              채팅창처럼 깔끔하게 보여줍니다.
+            </p>
+          </div>
+        </div>
+        <div class="step-connector">
+          <div class="connector-line"></div>
+          <i class="fa-solid fa-arrow-right connector-arrow"></i>
+        </div>
+        <div class="solution-step">
+          <div class="step-number">02</div>
+          <div class="step-content">
+            <div class="step-icon-wrap">
+              <i class="fa-solid fa-magnifying-glass-chart"></i>
+            </div>
+            <h3 class="step-title editable" data-editable="sol-2-title">구매 시그널 포착</h3>
+            <p class="step-desc editable" data-editable="sol-2-desc">
+              예산 한계, 선호 옵션, 숨겨진 망설임을<br />
+              AI가 족집게처럼 찾아냅니다.
+            </p>
+          </div>
+        </div>
+        <div class="step-connector">
+          <div class="connector-line"></div>
+          <i class="fa-solid fa-arrow-right connector-arrow"></i>
+        </div>
+        <div class="solution-step">
+          <div class="step-number">03</div>
+          <div class="step-content">
+            <div class="step-icon-wrap">
+              <i class="fa-solid fa-robot"></i>
+            </div>
+            <h3 class="step-title editable" data-editable="sol-3-title">다음 스텝 제안</h3>
+            <p class="step-desc editable" data-editable="sol-3-desc">
+              "이 고객에게는 내일 오후 2시에<br />
+              '할인 프로모션' 문자를 보내보세요."<br />
+              AI가 영업 전략까지 코칭합니다.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 4: DEMO PLAYER ========== -->
+  <section class="demo" id="demo">
+    <div class="container">
+      <div class="section-label">라이브 데모</div>
+      <h2 class="section-title">
+        직접 체험해 보세요.<br />
+        <span class="highlight">AI가 고객의 속마음을 읽는 순간</span>
+      </h2>
+      <p class="section-subtitle">재생 버튼을 누르면 AI가 실시간으로 통화를 분석합니다.</p>
+
+      <div class="demo-player-wrapper">
+        <!-- Audio Player UI -->
+        <div class="audio-player-card">
+          <div class="audio-player-header">
+            <div class="player-file-info">
+              <i class="fa-solid fa-file-audio"></i>
+              <div>
+                <span class="player-filename">sample_call_20240315.m4a</span>
+                <span class="player-meta">통화 시간: 4분 32초 · 2024.03.15</span>
+              </div>
+            </div>
+            <div class="player-status" id="playerStatus">
+              <span class="status-dot idle" id="statusDot"></span>
+              <span id="statusText">분석 대기 중</span>
+            </div>
+          </div>
+          <div class="audio-waveform" id="waveform">
+            <!-- Wave bars generated by JS -->
+          </div>
+          <div class="audio-controls">
+            <div class="time-display">
+              <span id="currentTime">0:00</span>
+              <div class="progress-bar-wrap">
+                <div class="progress-bar" id="progressBar">
+                  <div class="progress-fill" id="progressFill"></div>
+                  <div class="progress-thumb" id="progressThumb"></div>
+                </div>
+              </div>
+              <span id="totalTime">4:32</span>
+            </div>
+            <div class="control-buttons">
+              <button class="ctrl-btn ctrl-secondary" id="prevBtn" title="처음으로">
+                <i class="fa-solid fa-backward-step"></i>
+              </button>
+              <button class="ctrl-btn ctrl-primary" id="playBtn" title="재생/일시정지">
+                <i class="fa-solid fa-play" id="playIcon"></i>
+              </button>
+              <button class="ctrl-btn ctrl-secondary" id="nextBtn" title="다시 분석">
+                <i class="fa-solid fa-rotate-right"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Analysis Panel -->
+        <div class="analysis-panel" id="analysisPanel">
+          <div class="analysis-header">
+            <div class="analysis-title-wrap">
+              <span class="analysis-badge">
+                <i class="fa-solid fa-microchip"></i> AI 분석 결과
+              </span>
+              <div class="analysis-loader" id="analysisLoader" style="display:none;">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Transcript -->
+          <div class="transcript-section">
+            <h4 class="panel-label"><i class="fa-solid fa-comment-dots"></i> 대화 분석</h4>
+            <div class="transcript-box" id="transcriptBox">
+              <div class="transcript-placeholder">
+                <i class="fa-regular fa-circle-play"></i>
+                <p>재생 버튼을 눌러 AI 분석을 시작하세요</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Signal Tags -->
+          <div class="signals-section" id="signalsSection" style="display:none;">
+            <h4 class="panel-label"><i class="fa-solid fa-bolt"></i> 구매 시그널 감지</h4>
+            <div class="signal-tags" id="signalTags"></div>
+          </div>
+
+          <!-- Coaching -->
+          <div class="coaching-section" id="coachingSection" style="display:none;">
+            <h4 class="panel-label"><i class="fa-solid fa-lightbulb"></i> AI 영업 코칭</h4>
+            <div class="coaching-card" id="coachingCard"></div>
+          </div>
+
+          <!-- Score -->
+          <div class="score-section" id="scoreSection" style="display:none;">
+            <h4 class="panel-label"><i class="fa-solid fa-chart-bar"></i> 상담 평가</h4>
+            <div class="score-bars" id="scoreBars"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 5: FEATURES ========== -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-label">핵심 기능</div>
+      <h2 class="section-title editable" data-editable="features-title">
+        딜러의 수익 관점에서 설계된<br />
+        <span class="highlight">4가지 핵심 기능</span>
+      </h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <span class="feature-icon">📊</span>
+          </div>
+          <h3 class="feature-title editable" data-editable="feat-1-title">AI 상담 평가 리포트</h3>
+          <p class="feature-desc editable" data-editable="feat-1-desc">
+            내 영업 스킬의 객관적인 점수와 개선점을 제공합니다. 어떤 멘트에서 고객이 마음을 열었는지, 어디서 닫혔는지 정확히 알 수 있습니다.
+          </p>
+          <div class="feature-tag">계약률 향상</div>
+        </div>
+        <div class="feature-card featured">
+          <div class="feature-badge-wrap">
+            <span class="feature-popular">⭐ 가장 인기</span>
+          </div>
+          <div class="feature-icon-wrap">
+            <span class="feature-icon">🎯</span>
+          </div>
+          <h3 class="feature-title editable" data-editable="feat-2-title">구매 시그널 실시간 감지</h3>
+          <p class="feature-desc editable" data-editable="feat-2-desc">
+            고객의 숨겨진 구매 의지를 AI가 포착합니다. 예산, 선호 차량, 결정 요인을 자동으로 분류해 다음 영업 전략을 알려드립니다.
+          </p>
+          <div class="feature-tag">놓치는 DB 제로화</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <span class="feature-icon">🗂️</span>
+          </div>
+          <h3 class="feature-title editable" data-editable="feat-3-title">자동 고객 CRM</h3>
+          <p class="feature-desc editable" data-editable="feat-3-desc">
+            통화 내용 기반으로 고객 데이터베이스를 자동 구축합니다. 장부에 수기로 적을 필요 없이 모든 고객 정보가 자동으로 정리됩니다.
+          </p>
+          <div class="feature-tag">시간 절약 90%</div>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon-wrap">
+            <span class="feature-icon">🔒</span>
+          </div>
+          <h3 class="feature-title editable" data-editable="feat-4-title">완벽한 보안</h3>
+          <p class="feature-desc editable" data-editable="feat-4-desc">
+            철저한 데이터 암호화와 분석 후 즉시 파기로 고객 개인정보를 완벽하게 보호합니다. 개인정보처리방침 완비.
+          </p>
+          <div class="feature-tag">보안 인증 완비</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 6: SOCIAL PROOF / ROI ========== -->
+  <section class="results" id="results">
+    <div class="container">
+      <div class="section-label">기대 효과</div>
+      <h2 class="section-title editable" data-editable="results-title">
+        딜러 레이더 도입 후,<br />
+        <span class="highlight">가망 고객 손실률이 절반으로 줄어듭니다.</span>
+      </h2>
+      <div class="stats-row">
+        <div class="stat-card">
+          <div class="stat-number" data-target="90">0</div>
+          <div class="stat-unit">%</div>
+          <div class="stat-label editable" data-editable="stat-1">통화 후 리뷰 시간 단축</div>
+        </div>
+        <div class="stat-card stat-featured">
+          <div class="stat-number" data-target="100">0</div>
+          <div class="stat-unit">%</div>
+          <div class="stat-label editable" data-editable="stat-2">미세 구매 시그널 포착률</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="50">0</div>
+          <div class="stat-unit">%</div>
+          <div class="stat-label editable" data-editable="stat-3">가망 고객 DB 손실률 감소</div>
+        </div>
+      </div>
+
+      <div class="testimonial-area">
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text editable" data-editable="testimonial-1">
+            하루에 20통 넘게 받는데, 솔직히 나중에 기억 못 하는 게 절반이에요. 딜러 레이더 쓰고 나서 한 달 만에 계약 3건이 더 늘었어요.
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">김</div>
+            <div class="author-info">
+              <strong class="editable" data-editable="testimonial-1-name">김○○ 딜러</strong>
+              <span class="editable" data-editable="testimonial-1-role">서울 강남 · 경력 8년</span>
+            </div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+        <div class="testimonial-card">
+          <div class="quote-mark">"</div>
+          <p class="testimonial-text editable" data-editable="testimonial-2">
+            "가격 때문에 좀 더 생각해볼게요"가 "지금 계약할게요"로 바뀌는 게 신기해요. AI가 찍어준 후속 멘트를 그대로 했더니 성공하더라고요.
+          </p>
+          <div class="testimonial-author">
+            <div class="author-avatar">박</div>
+            <div class="author-info">
+              <strong class="editable" data-editable="testimonial-2-name">박○○ 딜러</strong>
+              <span class="editable" data-editable="testimonial-2-role">인천 · 경력 5년</span>
+            </div>
+            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== SECTION 7: FINAL CTA ========== -->
+  <section class="cta-final" id="cta-final">
+    <div class="cta-bg-effect"></div>
+    <div class="container cta-content">
+      <div class="cta-badge">🎁 베타 오픈 한정 혜택</div>
+      <h2 class="cta-headline editable" data-editable="cta-headline">
+        더 이상 감에 의존하지 마세요.<br />
+        <span class="highlight-light">데이터가 계약을 만듭니다.</span>
+      </h2>
+      <p class="cta-subtext editable" data-editable="cta-sub">
+        지금 바로 가입하고 첫 <strong>3건의 통화를 무료</strong>로 분석해 보세요.
+      </p>
+
+      <form class="cta-form" id="ctaForm">
+        <div class="form-row">
+          <input type="text" class="form-input" placeholder="이름 또는 닉네임" id="ctaName" />
+          <input type="tel" class="form-input" placeholder="연락처 (010-XXXX-XXXX)" id="ctaPhone" />
+          <input type="text" class="form-input" placeholder="근무 지역 (예: 서울 강남)" id="ctaRegion" />
+        </div>
+        <button type="submit" class="btn btn-cta-submit">
+          <i class="fa-solid fa-rocket"></i>
+          지금 무료로 시작하기
+        </button>
+        <p class="form-disclaimer">
+          <i class="fa-solid fa-lock"></i>
+          스팸 없음 · 언제든지 해지 가능 · 신용카드 불필요
+        </p>
+      </form>
+
+      <div class="cta-features-list">
+        <div class="cta-feature-item">
+          <i class="fa-solid fa-check"></i>
+          <span>첫 3건 완전 무료</span>
+        </div>
+        <div class="cta-feature-item">
+          <i class="fa-solid fa-check"></i>
+          <span>설치 없음, 바로 사용</span>
+        </div>
+        <div class="cta-feature-item">
+          <i class="fa-solid fa-check"></i>
+          <span>전담 온보딩 지원</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ========== FOOTER ========== -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <span class="logo-icon">📡</span>
+        <span class="logo-text">딜러 레이더</span>
+        <p class="footer-tagline editable" data-editable="footer-tagline">
+          중고차 딜러를 위한 AI 통화 분석 솔루션
+        </p>
+      </div>
+      <div class="footer-links">
+        <a href="#">개인정보처리방침</a>
+        <a href="#">이용약관</a>
+        <a href="#">문의하기</a>
+      </div>
+      <p class="footer-copy">
+        © 2024 딜러 레이더. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Edit Mode Toggle (개발/편집용) -->
+  <div class="edit-toolbar" id="editToolbar">
+    <button class="edit-toggle-btn" id="editToggleBtn" title="편집 모드">
+      <i class="fa-solid fa-pen-to-square"></i>
+      <span>편집 모드</span>
+    </button>
+    <div class="edit-toolbar-info" id="editToolbarInfo" style="display:none;">
+      <i class="fa-solid fa-circle-info"></i>
+      <span>파란 테두리 텍스트를 클릭하면 수정할 수 있습니다</span>
+      <button class="edit-save-btn" id="editSaveBtn">
+        <i class="fa-solid fa-floppy-disk"></i> 저장
+      </button>
+    </div>
+  </div>
+
+  <!-- Success Toast -->
+  <div class="toast" id="toast">
+    <i class="fa-solid fa-circle-check"></i>
+    <span id="toastMsg">신청이 완료되었습니다!</span>
+  </div>
+
+  <script src="js/main.js"></script>
+</body>
+</html>
