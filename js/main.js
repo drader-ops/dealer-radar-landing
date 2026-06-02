@@ -1,36 +1,45 @@
 /* =====================================================
    딜러 레이더 - Main JavaScript
+   Google Sheets 신청 연동 버전
    ===================================================== */
 
 'use strict';
+
+/**
+ * 여기에 Google Apps Script 배포 후 나온 /exec URL을 넣으세요.
+ * 예:
+ * const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxxxxx/exec';
+ */
+const GOOGLE_APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbyPTEindHXKc5LHARyF2yzcTuQ7ZJktTpGUS7icKySVu79lyH6SWnu814jlhJPcGGHh/exec';
 
 // ─── 1. NAVBAR SCROLL EFFECT ───────────────────────
 const navbar = document.getElementById('navbar');
 const hamburger = document.getElementById('hamburger');
 const mobileMenu = document.getElementById('mobileMenu');
 
-window.addEventListener('scroll', () => {
-  if (window.scrollY > 40) {
-    navbar.classList.add('scrolled');
-  } else {
-    navbar.classList.remove('scrolled');
-  }
-});
+if (navbar) {
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 40) {
+      navbar.classList.add('scrolled');
+    } else {
+      navbar.classList.remove('scrolled');
+    }
+  });
+}
 
-// Hamburger toggle
-hamburger.addEventListener('click', () => {
-  hamburger.classList.toggle('open');
-  mobileMenu.classList.toggle('open');
-});
+if (hamburger && mobileMenu) {
+  hamburger.addEventListener('click', () => {
+    hamburger.classList.toggle('open');
+    mobileMenu.classList.toggle('open');
+  });
+}
 
-// Mobile nav links close menu
 document.querySelectorAll('.mobile-nav-link').forEach(link => {
   link.addEventListener('click', () => {
-    hamburger.classList.remove('open');
-    mobileMenu.classList.remove('open');
+    if (hamburger) hamburger.classList.remove('open');
+    if (mobileMenu) mobileMenu.classList.remove('open');
   });
 });
-
 
 // ─── 2. HERO PARTICLES ─────────────────────────────
 function createParticles() {
@@ -38,11 +47,14 @@ function createParticles() {
   if (!container) return;
 
   const count = window.innerWidth < 600 ? 12 : 24;
+
   for (let i = 0; i < count; i++) {
-    const p = document.createElement('div');
-    p.className = 'particle';
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+
     const size = Math.random() * 4 + 2;
-    p.style.cssText = `
+
+    particle.style.cssText = `
       width: ${size}px;
       height: ${size}px;
       left: ${Math.random() * 100}%;
@@ -51,18 +63,18 @@ function createParticles() {
       animation-delay: ${Math.random() * 6}s;
       opacity: 0;
     `;
-    container.appendChild(p);
+
+    container.appendChild(particle);
   }
 }
-createParticles();
 
+createParticles();
 
 // ─── 3. WAVEFORM BARS ──────────────────────────────
 function generateWaveform() {
   const waveform = document.getElementById('waveform');
   if (!waveform) return;
 
-  const barCount = 52;
   const heights = [
     20, 35, 48, 30, 55, 42, 28, 60, 45, 32,
     52, 38, 25, 50, 44, 36, 58, 40, 28, 62,
@@ -72,23 +84,24 @@ function generateWaveform() {
   ];
 
   waveform.innerHTML = '';
-  heights.forEach((h, i) => {
+
+  heights.forEach((height, index) => {
     const bar = document.createElement('div');
     bar.className = 'wave-bar';
-    bar.style.height = `${h}%`;
-    bar.dataset.index = i;
+    bar.style.height = `${height}%`;
+    bar.dataset.index = index;
     waveform.appendChild(bar);
   });
 }
-generateWaveform();
 
+generateWaveform();
 
 // ─── 4. DEMO PLAYER ────────────────────────────────
 const DEMO_SCRIPT = [
   {
     delay: 600,
     speaker: 'dealer',
-    text: '안녕하세요, 저번에 문의주신 그랜저 건데요, 좋은 매물 들어왔어요.',
+    text: '안녕하세요, 저번에 문의주신 그랜저 건인데요. 좋은 매물이 들어와서 연락드렸습니다.',
   },
   {
     delay: 2200,
@@ -99,66 +112,65 @@ const DEMO_SCRIPT = [
   {
     delay: 3800,
     speaker: 'dealer',
-    text: '네, 21년식 그랜저 IG 흰색 풀옵션 있습니다. 2,950만 원이에요.',
+    text: '네, 2021년식 그랜저 IG 흰색 풀옵션 차량이 있습니다. 가격은 2,950만 원입니다.',
   },
   {
     delay: 5600,
     speaker: 'customer',
-    text: '음... 3천이 좀 넘는 건 부담스러워서요. 3천 안으로는 안 되나요?',
-    signal: { type: 'budget', label: '💰 예산 한계 감지: 3,000만 원 이하' },
+    text: '음... 3천이 넘는 건 조금 부담스러워서요. 3천 안으로는 안 되나요?',
+    signal: { type: 'budget', label: '💰 예산 기준 확인: 3,000만 원 이하 선호' },
   },
   {
     delay: 7400,
     speaker: 'dealer',
-    text: '아, 그렇군요. 이 차 상태가 정말 좋아서요. 혹시 색상은 흰색이 꼭 필요하신가요?',
+    text: '아, 그렇군요. 혹시 색상은 흰색이 꼭 필요하신가요?',
   },
   {
     delay: 9200,
     speaker: 'customer',
     text: '흰색이면 제일 좋긴 한데... 다른 색도 괜찮긴 해요.',
-    signal: { type: 'preference', label: '🎨 선호 옵션: 흰색 (협상 가능)' },
+    signal: { type: 'preference', label: '🎨 선호 옵션: 흰색 선호, 대체 색상 가능' },
   },
   {
     delay: 11000,
     speaker: 'dealer',
-    text: '그럼 비슷한 조건의 은색 21년식이 2,870만 원에 있거든요. 어떠세요?',
+    text: '그럼 비슷한 조건의 은색 2021년식이 2,870만 원에 있습니다. 이쪽도 비교해보실 수 있습니다.',
   },
   {
     delay: 13000,
     speaker: 'customer',
     text: '음, 그렇군요. 아내랑 한 번 상의해 봐야 할 것 같아요.',
-    signal: { type: 'hesitation', label: '⚠️ 주의: 가족 협의 요청 = 재접촉 필요' },
+    signal: { type: 'hesitation', label: '⚠️ 망설임 포인트: 가족 협의 필요' },
   },
   {
     delay: 15000,
     speaker: 'dealer',
-    text: '물론이죠! 언제쯤 연락 드릴까요?',
+    text: '네, 괜찮습니다. 그럼 언제쯤 다시 연락드리면 좋을까요?',
   },
   {
     delay: 16800,
     speaker: 'customer',
     text: '내일 저녁쯤이면 좋을 것 같아요.',
-    signal: { type: 'preference', label: '📅 재접촉 타이밍: 내일 저녁' },
+    signal: { type: 'preference', label: '📅 재연락 타이밍: 내일 저녁' },
   },
 ];
 
-const COACHING_TEXT = `<strong>📌 AI 코칭 제안</strong><br><br>
-이 고객은 <strong>예산 3,000만 원 이하</strong>를 원하며, 흰색 선호이나 협상 여지가 있습니다.<br><br>
-→ <strong>내일 저녁</strong> 재연락 시: <em>"2,870만 원 은색 차량에 블랙박스 설치 무료 제공 가능"</em> 으로 접근하세요.<br><br>
-→ 아내의 반응이 관건이므로 <strong>패밀리 친화적인 멘트</strong>로 마무리하세요.`;
+const COACHING_TEXT = `<strong>📌 AI 후속관리 제안</strong><br><br>
+이 고객은 <strong>3,000만 원 이하 예산</strong>을 중요하게 보고 있으며, 흰색을 선호하지만 대체 색상도 검토할 여지가 있습니다.<br><br>
+→ <strong>내일 저녁</strong> 재연락 시에는 가격보다 <strong>예산 안에 들어오는 대체 차량</strong>을 먼저 정리해주는 흐름이 좋습니다.<br><br>
+→ 추천 멘트: <em>"고객님, 말씀하신 3천만 원 이하 조건 기준으로 흰색과 대체 가능한 색상 차량을 같이 정리해드렸습니다."</em>`;
 
 const SCORE_DATA = [
-  { label: '경청 스킬', value: 78 },
-  { label: '니즈 파악', value: 85 },
-  { label: '가격 협상', value: 62 },
-  { label: '클로징', value: 54 },
+  { label: '예산 확인', value: 85 },
+  { label: '선호 조건 파악', value: 78 },
+  { label: '망설임 포인트 확인', value: 72 },
+  { label: '재연락 일정 확보', value: 90 },
 ];
 
 let isPlaying = false;
-let playTimeout = null;
 let currentProgress = 0;
 let progressInterval = null;
-let demoPhase = 'idle'; // idle | playing | done
+let demoPhase = 'idle';
 let transcriptItemCount = 0;
 
 const playBtn = document.getElementById('playBtn');
@@ -178,17 +190,19 @@ const scoreSection = document.getElementById('scoreSection');
 const scoreBars = document.getElementById('scoreBars');
 
 function formatTime(seconds) {
-  const m = Math.floor(seconds / 60);
-  const s = Math.floor(seconds % 60);
-  return `${m}:${s.toString().padStart(2, '0')}`;
+  const minutes = Math.floor(seconds / 60);
+  const restSeconds = Math.floor(seconds % 60);
+  return `${minutes}:${restSeconds.toString().padStart(2, '0')}`;
 }
 
 function updateWaveActive(progress) {
   const bars = document.querySelectorAll('.wave-bar');
   const activePct = progress / 100;
-  bars.forEach((bar, i) => {
-    const barPct = i / bars.length;
+
+  bars.forEach((bar, index) => {
+    const barPct = index / bars.length;
     bar.classList.remove('active', 'played');
+
     if (barPct < activePct - 0.02) {
       bar.classList.add('played');
     } else if (barPct < activePct + 0.04) {
@@ -198,23 +212,35 @@ function updateWaveActive(progress) {
 }
 
 function setStatus(state) {
+  if (!statusDot || !statusText) return;
+
   statusDot.className = 'status-dot ' + state;
-  const labels = { idle: '분석 대기 중', analyzing: 'AI 분석 중...', done: '분석 완료' };
+
+  const labels = {
+    idle: '분석 대기 중',
+    analyzing: 'AI 분석 중...',
+    done: '분석 완료'
+  };
+
   statusText.textContent = labels[state] || '';
-  if (state === 'analyzing') {
-    analysisLoader.style.display = 'flex';
-  } else {
-    analysisLoader.style.display = 'none';
+
+  if (analysisLoader) {
+    analysisLoader.style.display = state === 'analyzing' ? 'flex' : 'none';
   }
 }
 
 function addTranscriptLine(speaker, text, delay) {
   return new Promise(resolve => {
     setTimeout(() => {
-      // Remove placeholder if first item
+      if (!transcriptBox) {
+        resolve();
+        return;
+      }
+
       if (transcriptItemCount === 0) {
         transcriptBox.innerHTML = '';
       }
+
       transcriptItemCount++;
 
       const line = document.createElement('div');
@@ -233,7 +259,6 @@ function addTranscriptLine(speaker, text, delay) {
       transcriptBox.appendChild(line);
       transcriptBox.scrollTop = transcriptBox.scrollHeight;
 
-      // Typing effect
       let charIdx = 0;
       const typingInterval = setInterval(() => {
         if (charIdx < text.length) {
@@ -251,9 +276,12 @@ function addTranscriptLine(speaker, text, delay) {
 
 function addSignalTag(signal, delay) {
   setTimeout(() => {
+    if (!signal || !signalsSection || !signalTags) return;
+
     if (signalsSection.style.display === 'none') {
       signalsSection.style.display = 'block';
     }
+
     const tag = document.createElement('div');
     tag.className = `signal-tag ${signal.type}`;
     tag.innerHTML = `<i class="fa-solid fa-bolt"></i> ${signal.label}`;
@@ -263,22 +291,25 @@ function addSignalTag(signal, delay) {
 
 function showCoaching(delay) {
   setTimeout(() => {
+    if (!coachingSection || !coachingCard) return;
+
     coachingSection.style.display = 'block';
-    coachingCard.innerHTML = '';
-    const fullText = COACHING_TEXT;
-    coachingCard.innerHTML = fullText;
+    coachingCard.innerHTML = COACHING_TEXT;
     coachingCard.style.animation = 'fadeInUp 0.5s ease both';
   }, delay);
 }
 
 function showScores(delay) {
   setTimeout(() => {
+    if (!scoreSection || !scoreBars) return;
+
     scoreSection.style.display = 'block';
     scoreBars.innerHTML = '';
-    SCORE_DATA.forEach((item, idx) => {
+
+    SCORE_DATA.forEach((item, index) => {
       const el = document.createElement('div');
       el.className = 'score-item';
-      el.style.animationDelay = `${idx * 0.1}s`;
+      el.style.animationDelay = `${index * 0.1}s`;
       el.innerHTML = `
         <span class="score-label">${item.label}</span>
         <div class="score-bar-wrap">
@@ -289,7 +320,6 @@ function showScores(delay) {
       scoreBars.appendChild(el);
     });
 
-    // Animate bars
     setTimeout(() => {
       document.querySelectorAll('.score-bar-fill').forEach(bar => {
         bar.style.width = bar.dataset.val + '%';
@@ -299,56 +329,63 @@ function showScores(delay) {
 }
 
 function resetDemo() {
-  clearTimeout(playTimeout);
   clearInterval(progressInterval);
+
   currentProgress = 0;
   transcriptItemCount = 0;
   demoPhase = 'idle';
   isPlaying = false;
 
-  playIcon.className = 'fa-solid fa-play';
-  progressFill.style.width = '0%';
-  progressThumb.style.left = '0%';
-  currentTimeEl.textContent = '0:00';
+  if (playIcon) playIcon.className = 'fa-solid fa-play';
+  if (progressFill) progressFill.style.width = '0%';
+  if (progressThumb) progressThumb.style.left = '0%';
+  if (currentTimeEl) currentTimeEl.textContent = '0:00';
+
   setStatus('idle');
 
-  transcriptBox.innerHTML = `
-    <div class="transcript-placeholder">
-      <i class="fa-regular fa-circle-play"></i>
-      <p>재생 버튼을 눌러 AI 분석을 시작하세요</p>
-    </div>
-  `;
-  signalsSection.style.display = 'none';
-  signalTags.innerHTML = '';
-  coachingSection.style.display = 'none';
-  coachingCard.innerHTML = '';
-  scoreSection.style.display = 'none';
-  scoreBars.innerHTML = '';
+  if (transcriptBox) {
+    transcriptBox.innerHTML = `
+      <div class="transcript-placeholder">
+        <i class="fa-regular fa-circle-play"></i>
+        <p>재생 버튼을 눌러 AI 분석을 시작하세요</p>
+      </div>
+    `;
+  }
+
+  if (signalsSection) signalsSection.style.display = 'none';
+  if (signalTags) signalTags.innerHTML = '';
+  if (coachingSection) coachingSection.style.display = 'none';
+  if (coachingCard) coachingCard.innerHTML = '';
+  if (scoreSection) scoreSection.style.display = 'none';
+  if (scoreBars) scoreBars.innerHTML = '';
 
   updateWaveActive(0);
 }
 
 function startDemo() {
+  if (!playIcon || !progressFill || !progressThumb || !currentTimeEl) return;
+
   isPlaying = true;
   demoPhase = 'playing';
   playIcon.className = 'fa-solid fa-pause';
   setStatus('analyzing');
 
-  const totalSeconds = 272; // 4:32
-  const totalDuration = 18000; // ms simulation
-
-  // Progress bar animation
+  const totalSeconds = 272;
+  const totalDuration = 18000;
   const startTime = Date.now();
+
   progressInterval = setInterval(() => {
     const elapsed = Date.now() - startTime;
-    const pct = Math.min((elapsed / totalDuration) * 100, 100);
-    currentProgress = pct;
-    progressFill.style.width = pct + '%';
-    progressThumb.style.left = pct + '%';
-    currentTimeEl.textContent = formatTime((pct / 100) * totalSeconds);
-    updateWaveActive(pct);
+    const percent = Math.min((elapsed / totalDuration) * 100, 100);
 
-    if (pct >= 100) {
+    currentProgress = percent;
+    progressFill.style.width = percent + '%';
+    progressThumb.style.left = percent + '%';
+    currentTimeEl.textContent = formatTime((percent / 100) * totalSeconds);
+
+    updateWaveActive(percent);
+
+    if (percent >= 100) {
       clearInterval(progressInterval);
       demoPhase = 'done';
       isPlaying = false;
@@ -357,19 +394,14 @@ function startDemo() {
     }
   }, 80);
 
-  // Transcript + signal timing
-  let cumulativeDelay = 0;
-
-  DEMO_SCRIPT.forEach((item) => {
-    const lineDelay = item.delay;
-    addTranscriptLine(item.speaker, item.text, lineDelay);
+  DEMO_SCRIPT.forEach(item => {
+    addTranscriptLine(item.speaker, item.text, item.delay);
 
     if (item.signal) {
-      addSignalTag(item.signal, lineDelay + 600);
+      addSignalTag(item.signal, item.delay + 600);
     }
   });
 
-  // Coaching & score appear after most dialog
   showCoaching(13800);
   showScores(15500);
 }
@@ -382,19 +414,16 @@ if (playBtn) {
       resetDemo();
       setTimeout(startDemo, 300);
     } else if (isPlaying) {
-      // pause
       isPlaying = false;
       clearInterval(progressInterval);
-      playIcon.className = 'fa-solid fa-play';
+      if (playIcon) playIcon.className = 'fa-solid fa-play';
       setStatus('idle');
     } else {
-      // resume (simplified: just show message)
       showToast('실제 서비스에서는 일시정지/재개가 지원됩니다.', 2200);
     }
   });
 }
 
-// Reset button
 const nextBtn = document.getElementById('nextBtn');
 if (nextBtn) {
   nextBtn.addEventListener('click', () => {
@@ -410,47 +439,57 @@ if (prevBtn) {
   });
 }
 
-
 // ─── 5. SCROLL REVEAL ──────────────────────────────
 function initScrollReveal() {
   const revealEls = document.querySelectorAll(
     '.problem-card, .solution-step, .feature-card, .stat-card, .testimonial-card, .audio-player-card, .analysis-panel'
   );
 
-  revealEls.forEach((el, i) => {
+  revealEls.forEach(el => {
     el.classList.add('reveal');
-    // Stagger within same parent
-    const siblings = el.parentElement.querySelectorAll('.reveal');
-    const idx = Array.from(siblings).indexOf(el);
-    if (idx > 0) {
-      el.classList.add(`reveal-delay-${Math.min(idx, 4)}`);
+
+    const siblings = el.parentElement ? el.parentElement.querySelectorAll('.reveal') : [];
+    const index = Array.from(siblings).indexOf(el);
+
+    if (index > 0) {
+      el.classList.add(`reveal-delay-${Math.min(index, 4)}`);
     }
   });
 
-  const observer = new IntersectionObserver((entries) => {
+  if (!('IntersectionObserver' in window)) {
+    revealEls.forEach(el => el.classList.add('visible'));
+    return;
+  }
+
+  const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if (entry.isIntersecting) {
         entry.target.classList.add('visible');
       }
     });
-  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  }, {
+    threshold: 0.1,
+    rootMargin: '0px 0px -40px 0px'
+  });
 
   document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 }
 
 initScrollReveal();
 
-
 // ─── 6. COUNTER ANIMATION ──────────────────────────
 function animateCounter(el, target, duration = 1800) {
   let start = 0;
   const increment = target / (duration / 16);
+
   const timer = setInterval(() => {
     start += increment;
+
     if (start >= target) {
       start = target;
       clearInterval(timer);
     }
+
     el.textContent = Math.floor(start);
   }, 16);
 }
@@ -458,96 +497,179 @@ function animateCounter(el, target, duration = 1800) {
 const statsSection = document.getElementById('results');
 let statsAnimated = false;
 
-const statsObserver = new IntersectionObserver((entries) => {
-  if (entries[0].isIntersecting && !statsAnimated) {
-    statsAnimated = true;
-    document.querySelectorAll('.stat-number').forEach(el => {
-      const target = parseInt(el.dataset.target);
-      animateCounter(el, target);
-    });
-  }
-}, { threshold: 0.3 });
+if (statsSection && 'IntersectionObserver' in window) {
+  const statsObserver = new IntersectionObserver(entries => {
+    if (entries[0].isIntersecting && !statsAnimated) {
+      statsAnimated = true;
+      document.querySelectorAll('.stat-number').forEach(el => {
+        const target = parseInt(el.dataset.target, 10) || 0;
+        animateCounter(el, target);
+      });
+    }
+  }, { threshold: 0.3 });
 
-if (statsSection) statsObserver.observe(statsSection);
+  statsObserver.observe(statsSection);
+}
 
-
-// ─── 7. CTA FORM ───────────────────────────────────
+// ─── 7. CTA FORM → GOOGLE SHEETS ───────────────────
 const ctaForm = document.getElementById('ctaForm');
-if (ctaForm) {
-  ctaForm.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const name = document.getElementById('ctaName').value.trim();
-    const phone = document.getElementById('ctaPhone').value.trim();
-    const region = document.getElementById('ctaRegion').value.trim();
 
-    if (!name || !phone) {
-      showToast('이름과 연락처를 입력해 주세요.', 2200, 'error');
+if (ctaForm) {
+  ctaForm.addEventListener('submit', async event => {
+    event.preventDefault();
+
+    const nameInput = document.getElementById('ctaName');
+    const phoneInput = document.getElementById('ctaPhone');
+    const regionInput = document.getElementById('ctaRegion');
+    const privacyAgreeInput = document.getElementById('ctaPrivacyAgree');
+    const websiteInput = document.getElementById('ctaWebsite');
+    const submitButton = ctaForm.querySelector('.btn-cta-submit');
+
+    const name = nameInput ? nameInput.value.trim() : '';
+    const phone = phoneInput ? phoneInput.value.trim() : '';
+    const region = regionInput ? regionInput.value.trim() : '';
+    const privacyAgree = privacyAgreeInput ? privacyAgreeInput.checked : false;
+    const website = websiteInput ? websiteInput.value.trim() : '';
+
+    if (!name) {
+      showToast('이름 또는 닉네임을 입력해 주세요.', 2200, 'error');
+      if (nameInput) nameInput.focus();
       return;
     }
 
-    // Simulate form submission
-    const btn = ctaForm.querySelector('.btn-cta-submit');
-    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 신청 중...';
-    btn.disabled = true;
+    if (!phone) {
+      showToast('연락처를 입력해 주세요.', 2200, 'error');
+      if (phoneInput) phoneInput.focus();
+      return;
+    }
 
-    setTimeout(() => {
-      btn.innerHTML = '<i class="fa-solid fa-check"></i> 신청 완료!';
-      btn.style.background = 'linear-gradient(135deg, #10B981, #059669)';
-      showToast(`${name}님, 베타 신청이 완료되었습니다! 곧 연락드릴게요 🎉`, 3500);
+    const normalizedPhone = phone.replace(/\s/g, '');
+    const phonePattern = /^01[0-9]-?\d{3,4}-?\d{4}$/;
+
+    if (!phonePattern.test(normalizedPhone)) {
+      showToast('연락처 형식을 확인해 주세요. 예: 010-1234-5678', 2600, 'error');
+      if (phoneInput) phoneInput.focus();
+      return;
+    }
+
+    if (!privacyAgree) {
+      showToast('개인정보 수집·이용 동의가 필요합니다.', 2600, 'error');
+      if (privacyAgreeInput) privacyAgreeInput.focus();
+      return;
+    }
+
+    if (!GOOGLE_APPS_SCRIPT_URL || GOOGLE_APPS_SCRIPT_URL.includes('여기에_')) {
+      showToast('Apps Script 웹앱 URL이 아직 설정되지 않았습니다.', 3000, 'error');
+      return;
+    }
+
+    const originalButtonHtml = submitButton ? submitButton.innerHTML : '';
+
+    try {
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 신청 중...';
+      }
+
+      const payload = {
+        name,
+        phone,
+        region,
+        privacyAgree,
+        website,
+        source: 'dealer_radar_landing_beta',
+        pageUrl: window.location.href,
+        userAgent: navigator.userAgent,
+        submittedAt: new Date().toISOString()
+      };
+
+      await fetch(GOOGLE_APPS_SCRIPT_URL, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      showToast(`${name}님, 베타 신청이 완료되었습니다. 곧 안내드리겠습니다.`, 3500, 'success');
       ctaForm.reset();
-      setTimeout(() => {
-        btn.innerHTML = '<i class="fa-solid fa-rocket"></i> 지금 무료로 시작하기';
-        btn.style.background = '';
-        btn.disabled = false;
-      }, 3000);
-    }, 1500);
+
+    } catch (error) {
+      console.error('Beta signup error:', error);
+      showToast('신청 중 오류가 발생했습니다. 잠시 후 다시 시도해 주세요.', 3000, 'error');
+
+    } finally {
+      if (submitButton) {
+        submitButton.disabled = false;
+        submitButton.innerHTML = originalButtonHtml || '<i class="fa-solid fa-rocket"></i> 베타테스트 신청하기';
+      }
+    }
   });
 }
 
-
 // ─── 8. TOAST NOTIFICATION ─────────────────────────
-function showToast(msg, duration = 2500, type = 'success') {
+function showToast(message, duration = 2500, type = 'success') {
   const toast = document.getElementById('toast');
   const toastMsg = document.getElementById('toastMsg');
+
+  if (!toast || !toastMsg) {
+    alert(message);
+    return;
+  }
+
   const icon = toast.querySelector('i');
 
-  toastMsg.textContent = msg;
+  toastMsg.textContent = message;
+
+  if (icon) {
+    if (type === 'error') {
+      icon.className = 'fa-solid fa-circle-exclamation';
+      icon.style.color = 'var(--danger)';
+    } else {
+      icon.className = 'fa-solid fa-circle-check';
+      icon.style.color = 'var(--success)';
+    }
+  }
+
   if (type === 'error') {
-    icon.className = 'fa-solid fa-circle-exclamation';
     toast.style.borderColor = 'rgba(239,68,68,0.35)';
-    icon.style.color = 'var(--danger)';
     toast.style.color = 'var(--danger)';
   } else {
-    icon.className = 'fa-solid fa-circle-check';
     toast.style.borderColor = 'rgba(16,185,129,0.35)';
-    icon.style.color = 'var(--success)';
     toast.style.color = 'var(--success)';
   }
 
   toast.classList.add('show');
-  setTimeout(() => toast.classList.remove('show'), duration);
-}
 
+  setTimeout(() => {
+    toast.classList.remove('show');
+  }, duration);
+}
 
 // ─── 9. EDIT MODE ──────────────────────────────────
 const editToggleBtn = document.getElementById('editToggleBtn');
 const editToolbarInfo = document.getElementById('editToolbarInfo');
 const editSaveBtn = document.getElementById('editSaveBtn');
+
 let editMode = false;
 let savedEdits = {};
 
-// Load saved edits from localStorage
 function loadSavedEdits() {
   try {
     const stored = localStorage.getItem('dealer-radar-edits');
-    if (stored) {
-      savedEdits = JSON.parse(stored);
-      Object.entries(savedEdits).forEach(([key, val]) => {
-        const el = document.querySelector(`[data-editable="${key}"]`);
-        if (el) el.innerHTML = val;
-      });
-    }
-  } catch(e) {}
+
+    if (!stored) return;
+
+    savedEdits = JSON.parse(stored);
+
+    Object.entries(savedEdits).forEach(([key, value]) => {
+      const el = document.querySelector(`[data-editable="${key}"]`);
+      if (el) el.innerHTML = value;
+    });
+  } catch (error) {
+    console.warn('편집 저장값을 불러오지 못했습니다.', error);
+  }
 }
 
 loadSavedEdits();
@@ -555,29 +677,27 @@ loadSavedEdits();
 if (editToggleBtn) {
   editToggleBtn.addEventListener('click', () => {
     editMode = !editMode;
+
     document.body.classList.toggle('edit-mode', editMode);
     editToggleBtn.classList.toggle('active', editMode);
-    editToolbarInfo.style.display = editMode ? 'flex' : 'none';
 
-    const editables = document.querySelectorAll('.editable');
-    editables.forEach(el => {
-      if (editMode) {
-        el.contentEditable = 'true';
-        el.spellcheck = false;
-      } else {
-        el.contentEditable = 'false';
-      }
+    if (editToolbarInfo) {
+      editToolbarInfo.style.display = editMode ? 'flex' : 'none';
+    }
+
+    document.querySelectorAll('.editable').forEach(el => {
+      el.contentEditable = editMode ? 'true' : 'false';
+      el.spellcheck = false;
     });
 
     if (editMode) {
-      showToast('편집 모드 활성화 · 파란 테두리 텍스트를 직접 수정하세요!', 3000);
+      showToast('편집 모드 활성화 · 파란 테두리 텍스트를 직접 수정하세요.', 3000);
     }
   });
 }
 
 if (editSaveBtn) {
   editSaveBtn.addEventListener('click', () => {
-    // Save all editable content
     document.querySelectorAll('.editable').forEach(el => {
       const key = el.dataset.editable;
       if (key) savedEdits[key] = el.innerHTML;
@@ -585,50 +705,64 @@ if (editSaveBtn) {
 
     try {
       localStorage.setItem('dealer-radar-edits', JSON.stringify(savedEdits));
-      showToast('변경 사항이 저장되었습니다! ✅', 2500);
-    } catch(e) {
+      showToast('변경 사항이 저장되었습니다.', 2500);
+    } catch (error) {
       showToast('저장 중 오류가 발생했습니다.', 2000, 'error');
     }
   });
 }
 
-
 // ─── 10. SMOOTH SCROLL ─────────────────────────────
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', (e) => {
-    const target = document.querySelector(anchor.getAttribute('href'));
+  anchor.addEventListener('click', event => {
+    const selector = anchor.getAttribute('href');
+
+    if (!selector || selector === '#') return;
+
+    const target = document.querySelector(selector);
+
     if (target) {
-      e.preventDefault();
-      const navH = navbar.offsetHeight;
-      const top = target.getBoundingClientRect().top + window.scrollY - navH - 16;
-      window.scrollTo({ top, behavior: 'smooth' });
+      event.preventDefault();
+
+      const navHeight = navbar ? navbar.offsetHeight : 0;
+      const top = target.getBoundingClientRect().top + window.scrollY - navHeight - 16;
+
+      window.scrollTo({
+        top,
+        behavior: 'smooth'
+      });
     }
   });
 });
-
 
 // ─── 11. ACTIVE NAV HIGHLIGHT ──────────────────────
 const sections = document.querySelectorAll('section[id]');
 const navLinks = document.querySelectorAll('.nav-links a');
 
 function updateActiveNav() {
+  if (!navbar) return;
+
   const scrollY = window.scrollY + navbar.offsetHeight + 60;
+
   sections.forEach(section => {
     const top = section.offsetTop;
     const height = section.offsetHeight;
     const id = section.getAttribute('id');
     const link = document.querySelector(`.nav-links a[href="#${id}"]`);
-    if (link) {
-      if (scrollY >= top && scrollY < top + height) {
-        navLinks.forEach(l => l.style.color = '');
-        link.style.color = 'var(--primary-light)';
-      }
+
+    if (!link) return;
+
+    if (scrollY >= top && scrollY < top + height) {
+      navLinks.forEach(navLink => {
+        navLink.style.color = '';
+      });
+
+      link.style.color = 'var(--primary-light)';
     }
   });
 }
 
 window.addEventListener('scroll', updateActiveNav, { passive: true });
-
 
 // ─── 12. INIT ──────────────────────────────────────
 document.addEventListener('DOMContentLoaded', () => {
